@@ -42,7 +42,8 @@ CREATE TABLE AUTEUR
               CONSTRAINT PK_AUTEUR PRIMARY KEY,
     NOM_AUTEUR VARCHAR2(50) 
               CONSTRAINT NN_NOM_AUTEUR NOT NULL,
-    PRENOM_AUTEUR VARCHAR2(50)  NULL 
+    PRENOM_AUTEUR VARCHAR2(50)  NULL,
+    BIO_AUTEUR CLOB NULL -- A rajouter sur le MLD
    ) ;
 
 -- -----------------------------------------------------------------------------
@@ -75,7 +76,8 @@ CREATE TABLE EDITEUR
 -- -----------------------------------------------------------------------------
 --       TABLE : LIVRE
 -- -----------------------------------------------------------------------------
-
+-- Rajouter catégorie livre (sf, noir, etc)
+-- Si nécessaire, format livre (poche, broché)
 CREATE TABLE LIVRE
    (
     ID_LIVRE NUMBER(2)  
@@ -86,10 +88,10 @@ CREATE TABLE LIVRE
                   CONSTRAINT FK_LIVRE_AVANCEMENT REFERENCES AVANCEMENT (ID_AVANCEMENT),
     TITRE_LIVRE VARCHAR2(50)
                 CONSTRAINT NN_TITRE_LIVRE NOT NULL,
-    SYNOPSIS_LIVRE VARCHAR2(128)  NULL,
-    ILLUSTRATION_LIVRE BLOB  NULL,
-    DATEPARUTION_LIVRE DATE
-                       CONSTRAINT NN_DATEPARUTION_LIVRE NOT NULL
+	  DATEPARUTION_LIVRE DATE
+                       CONSTRAINT NN_DATEPARUTION_LIVRE NOT NULL,
+    SYNOPSIS_LIVRE CLOB NULL, -- Modifier l'ordre sur le MLD
+    ILLUSTRATION_LIVRE BLOB  NULL
    ) ;
 
 -- -----------------------------------------------------------------------------
