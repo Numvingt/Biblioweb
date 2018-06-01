@@ -25,11 +25,37 @@ DROP TABLE AVANCEMENT;
 
 DROP TABLE AUTEUR;
 
+DROP TABLE FORMAT;
+
+DROP TABLE GENRE;
+
 -- -----------------------------------------------------------------------------
 --       CREATION DE LA BASE 
 -- -----------------------------------------------------------------------------
 
 CREATE DATABASE BIBLIOWEB;
+
+-- -----------------------------------------------------------------------------
+--       TABLE : GENRE
+-- -----------------------------------------------------------------------------
+
+CREATE TABLE GENRE
+   (
+    ID_GENRE CHAR(32)  NOT NULL
+             CONSTRAINT PK_GENRE PRIMARY KEY,
+    NOM_GENRE CHAR(32)  NULL 
+   ) ;
+
+-- -----------------------------------------------------------------------------
+--       TABLE : FORMAT
+-- -----------------------------------------------------------------------------
+
+CREATE TABLE FORMAT
+   (
+    ID_FORMAT CHAR(32)  NOT NULL
+              CONSTRAINT PK_FORMAT PRIMARY KEY,
+    NOM_FORMAT CHAR(32)  NULL  
+   ) ;
 
 -- -----------------------------------------------------------------------------
 --       TABLE : AUTEUR
@@ -76,15 +102,22 @@ CREATE TABLE EDITEUR
 -- -----------------------------------------------------------------------------
 --       TABLE : LIVRE
 -- -----------------------------------------------------------------------------
-
+-- Rajouter catégorie livre (sf, noir, etc)
+-- Si nécessaire, format livre (poche, broché)
 CREATE TABLE LIVRE
    (
     ID_LIVRE NUMBER(2)  
              CONSTRAINT NN_ID_LIVRE NOT NULL
              CONSTRAINT PK_LIVRE PRIMARY KEY,
+    ID_FORMAT CHAR(32)  -- modifier type (sur mlo aussi)
+              CONSTRAINT NN_ID_FORMAT_LIVRE NOT NULL
+              CONSTRAINT FK_LIVRE_FORMAT REFERENCES FORMAT (ID_FORMAT),
     ID_AVANCEMENT NUMBER(2)  
                   CONSTRAINT NN_ID_AVANCEMENT_LIVRE NOT NULL
                   CONSTRAINT FK_LIVRE_AVANCEMENT REFERENCES AVANCEMENT (ID_AVANCEMENT),
+    ID_GENRE CHAR(32)  -- modifier type (mlo aussi)
+             CONSTRAINT NN_ID_GENRE_LIVRE NOT NULL
+             CONSTRAINT FK_LIVRE_GENRE REFERENCES GENRE (ID_GENRE),
     TITRE_LIVRE VARCHAR2(50)
                 CONSTRAINT NN_TITRE_LIVRE NOT NULL,
 	  DATEPARUTION_LIVRE DATE
