@@ -13,7 +13,7 @@ $bdd = new PDO('mysql:host=localhost;dbname=biblioweb','root','');
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="stylesheet" type="text/css" href="style.css">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-        <title> Se connecter </title>
+        <title> Gestion utilisateur </title>
     </head>
 
     <body>

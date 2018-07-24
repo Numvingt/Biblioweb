@@ -40,7 +40,6 @@ a:focus {
 
 .beep {
     background-repeat: no-repeat;
-    align-self: center;
     position: relative;
     width: 500px;
     height: 500px;
