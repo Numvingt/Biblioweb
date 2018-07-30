@@ -30,6 +30,7 @@ try {
 					$req = $bdd->prepare('DELETE FROM livre WHERE nom = :nom');
 					$req->bindParam(':nom', $sanitized_name, PDO::PARAM_STR);
 					$req->execute();
+                    header('Location: ../remove.php');
 				 else :?>
                     <form method="post" action="remove.php">
                         <input type="text" name="nom" placeholder="Titre du livre" /><br/>
