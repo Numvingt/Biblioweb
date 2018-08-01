@@ -1,0 +1,1 @@
+<link rel="shortcut icon" href="img/fav.png" type="image/ico">

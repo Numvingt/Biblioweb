@@ -5,12 +5,13 @@ try {
   $bdd = new PDO('mysql:host=localhost;dbname=biblioweb','root','');
   //Gérer erreur
   $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  $reponse = $bdd->query('SELECT nom FROM livre'); //stockage résultat query
+  $reponse = $bdd->query('SELECT id,nom FROM livre'); //stockage résultat query
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+    <?php include("favicon.php"); ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -22,18 +23,17 @@ try {
 <body>
     <?php include("navbar.php"); ?>
     <main>
-        <p id="greet">Veuillez entrer le titre du livre à supprimer :</p>
+        <p id="greet">Veuillez entrer le numéro du livre à supprimer :</p>
 
         <?php
-				  if (isset($_POST['nom'])):
-					$sanitized_name = filter_var($_POST['nom'],FILTER_SANITIZE_STRING); //Nettoyage titre livre
-					$req = $bdd->prepare('DELETE FROM livre WHERE nom = :nom');
-					$req->bindParam(':nom', $sanitized_name, PDO::PARAM_STR);
+				  if (isset($_POST['id'])):
+					$req = $bdd->prepare('DELETE FROM livre WHERE id = :id');
+					$req->bindParam(':id', $_POST['id'], PDO::PARAM_INT);
 					$req->execute();
                     header('Location: ../remove.php');
 				 else :?>
                     <form method="post" action="remove.php">
-                        <input type="text" name="nom" placeholder="Titre du livre" /><br/>
+                        <input type="number" name="id" placeholder="Numéro du livre" /><br/>
                         <input type="submit" name="valider" />
                     </form>
                     <br/>
@@ -41,8 +41,8 @@ try {
         
             <p id="greet">Livres dans la bibliothèque :</p>
             <?php while ($donnees = $reponse->fetch()){ ?>
-            <p>-
-                <?php echo $donnees['nom']; ?>
+            <p>
+                <?php echo $donnees['id'] .' => '. $donnees['nom']; ?>
             </p>
             <br/>
             <?php } ?>

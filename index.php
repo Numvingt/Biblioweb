@@ -3,7 +3,7 @@
 <html>
 
 <head>
-    <link rel="shortcut icon" href="img/fav.png" type="image/ico">
+    <?php include("favicon.php"); ?>
     <title>BiblioWeb</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">

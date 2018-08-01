@@ -11,6 +11,7 @@ try {
 <html lang="en">
 
 <head>
+    <?php include("favicon.php"); ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -30,28 +31,40 @@ try {
                 echo '<br/>';
                 echo '<a href="addBook.php">OK</a>';
             else:
-                $req = $bdd->prepare('INSERT INTO livre(nom, parution, editeur, genre) VALUES(:nom,:parution,:editeur,:genre)');
-                $req->bindParam(':nom', $_POST['nom'], PDO::PARAM_STR);
+                $sanitized_nom = filter_var($_POST['nom'],FILTER_SANITIZE_STRING);
+                $req = $bdd->prepare('INSERT INTO livre(nom, parution, editeur) VALUES(:nom,:parution,:editeur)');
+                $req->bindParam(':nom', $sanitized_nom, PDO::PARAM_STR);
                 $req->bindParam(':parution', $_POST['parution'], PDO::PARAM_STR);
                 $req->bindParam(':editeur', $_POST['editeur'], PDO::PARAM_STR);
-                $req->bindParam(':genre', $_POST['genre'], PDO::PARAM_INT);
                 $req->execute();
+    
+                $req = $bdd->prepare('SELECT id FROM livre WHERE nom = :nom');
+				$req->bindParam(':nom', $sanitized_nom, PDO::PARAM_STR);
+				$req->execute();
+				$result = $req->fetch();
+    
+                $req = $bdd->prepare('INSERT INTO genre_livre(id_livre,id_genre)VALUES(:id,:idgenre)');
+                $req->bindParam(':id', $result['id'], PDO::PARAM_INT);
+                $req->bindParam(':idgenre', $_POST['genre1'], PDO::PARAM_INT);
+                $req->execute();
+    
+                $req = $bdd->prepare('INSERT INTO genre_livre(id_livre,id_genre)VALUES(:id,:idgenre)');
+                $req->bindParam(':id', $result['id'], PDO::PARAM_INT);
+                $req->bindParam(':idgenre', $_POST['genre2'], PDO::PARAM_INT);
+                $req->execute();
+    
                 echo 'Le livre a bien été ajouté';
                 echo '<br/>';
                 echo '<a href="addBook.php">OK</a>';
-                echo '<br/>';
-                echo $_POST['genre1']; //Test de l'appel du select -> it works
-                echo $_POST['genre2'];
             endif;
           else: ?>
             <br/>
-            <p>Veuillez saisir les informations pour le livre</p>
+            <p id="greet">Veuillez saisir les informations pour le livre</p>
             <form method="post" action="addBook.php">
                 <ul>
                     <li><input type="text" name="nom" placeholder="Nom" /></li>
                     <li><input type="text" name="parution" placeholder="Année parution" /></li>
                     <li><input type="text" name="editeur" placeholder="Editeur" /></li>
-                    <li><input type="text" name="genre" placeholder="Genre" /></li>
                     <li>
                         <select name="genre1">
                             <option value="1">Bandes dessinées</option>
