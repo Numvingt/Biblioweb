@@ -23,10 +23,7 @@
         <div id="greet"></div>
 
         <!-- js -->
-
         <!-- random quote -->
-
-
         <script>
             quotes = [];
             quotes[0] = "When we feel alive I know she'll let me go.";

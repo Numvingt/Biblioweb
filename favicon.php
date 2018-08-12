@@ -1,1 +1,1 @@
-<link rel="shortcut icon" href="img/fav.png" type="image/ico">
+<link rel="shortcut icon" href="img/fav2.png" type="image/ico">
