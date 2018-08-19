@@ -32,10 +32,12 @@ try {
                 echo '<a href="addBook.php">OK</a>';
             else:
                 $sanitized_nom = filter_var($_POST['nom'],FILTER_SANITIZE_STRING);
+                $sanitized_parution = filter_var($_POST['parution'],FILTER_SANITIZE_INT);
+                $sanitized_editeur = filter_var($_POST['editeur'],FILTER_SANITIZE_STRING);
                 $req = $bdd->prepare('INSERT INTO livre(nom, parution, editeur) VALUES(:nom,:parution,:editeur)');
                 $req->bindParam(':nom', $sanitized_nom, PDO::PARAM_STR);
-                $req->bindParam(':parution', $_POST['parution'], PDO::PARAM_STR);
-                $req->bindParam(':editeur', $_POST['editeur'], PDO::PARAM_STR);
+                $req->bindParam(':parution', $sanitized_parution, PDO::PARAM_INT);
+                $req->bindParam(':editeur', $sanitized_editeur, PDO::PARAM_STR);
                 $req->execute();
     
                 $req = $bdd->prepare('SELECT id FROM livre WHERE nom = :nom');
