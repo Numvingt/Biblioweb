@@ -2,9 +2,6 @@
 try {
     //connexion base
     $bdd = new PDO('mysql:host=localhost;dbname=biblioweb','root','');
-    
-
-            
     ?>
 <!DOCTYPE html>
 <html lang="en">
