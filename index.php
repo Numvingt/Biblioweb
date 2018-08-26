@@ -1,3 +1,4 @@
+<!-- PROJET INDIVIDUEL BIBLIOWEB - Site pour gérer la bibliothèque des utilisateurs -->
 <?php session_start();?>
 <!DOCTYPE html>
 <html>
