@@ -2,7 +2,7 @@
 session_start();
 try {
   //connexion base
-$bdd = new PDO('mysql:host=localhost;dbname=biblioweb','root','');
+    $bdd = new PDO('mysql:host=hhva.myd.infomaniak.com;dbname=hhva_laurentns','hhva_laurentns','MDPHERE');
 ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -23,7 +23,7 @@ $bdd = new PDO('mysql:host=localhost;dbname=biblioweb','root','');
             <?php  if (isset($_SESSION['id']) AND isset($_SESSION['login'])):
 				echo 'Bonjour '. $_SESSION['login']; ?>
             </br>
-            <a href="scripts/logOut.php">Logout</a>
+            <a href="scripts/logout.php">Logout</a>
             <?php
 			   else:
 				  if ((isset($_POST['login']) AND isset($_POST['password']))):
@@ -36,12 +36,12 @@ $bdd = new PDO('mysql:host=localhost;dbname=biblioweb','root','');
 					if(password_verify($sanitized_password,$result['password'])):
                         $_SESSION['id'] = $result['id'];
 				        $_SESSION['login'] = $sanitized_nickname;
-                        header('Location: ../connexion.php');
+                        header('Location: ../laurentns/connexion.php');
 						echo 'Bonjour '. $_SESSION['login']; ?>
                 </br>
                 <a href="scripts/logOut.php">Logout</a>
                 <?php
-					else:?> Erreur dans le mot de passe
+					else:?> Erreur !
                 <br/>
                 <a href="connexion.php">Retour à la connexion</a>
                 <?php 

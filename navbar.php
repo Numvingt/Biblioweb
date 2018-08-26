@@ -13,7 +13,6 @@
         <?php else: ?>
         <li><a href="inscription.php">S'inscrire</a></li>
         <li><a href="connexion.php">Se connecter</a></li>
-        <li><a href="display.php">Bibliothèque</a></li>
         <?php endif; ?>
     </ul>
 

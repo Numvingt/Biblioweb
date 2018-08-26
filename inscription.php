@@ -3,7 +3,7 @@ session_start();
 
 try {
   //connexion base
-  $bdd = new PDO('mysql:host=localhost;dbname=biblioweb','root','');
+    $bdd = new PDO('mysql:host=hhva.myd.infomaniak.com;dbname=hhva_laurentns','hhva_laurentns','MDPHERE');
 
 ?>
     <!DOCTYPE html>
